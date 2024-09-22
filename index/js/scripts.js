@@ -32,3 +32,31 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+// Create a cookie function
+function setCookie(name, value, days) {
+    let date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+// Read cookies
+function getCookie(name) {
+    let value = `; ${document.cookie}`;
+    let parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Check if the cookies have been accepted on window load
+window.onload = function() {
+    if (!getCookie("cookiesAccepted")) {
+        document.getElementById("cookieConsent").style.display = "block";
+    }
+};
+
+// Handle cookie acceptance
+function acceptCookies() {
+    setCookie("cookiesAccepted", "true", 365); // Set for 1 year
+    document.getElementById("cookieConsent").style.display = "none";
+}
