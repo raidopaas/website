@@ -60,3 +60,8 @@ function acceptCookies() {
     setCookie("cookiesAccepted", "true", 365); // Set for 1 year
     document.getElementById("cookieConsent").style.display = "none";
 }
+
+// Redirect if the URL ends with a trailing slash
+if (window.location.pathname.endsWith('/')) {
+    window.location.href = window.location.href.slice(0, -1);
+}
